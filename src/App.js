@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Quote from "./components/quotes/Quote";
 
-function App() {
+import QuoteState from "./context/quote/QuoteState";
+
+import "./App.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <QuoteState>
+      <Router>
+        <div className='App'>
+          <div className='container'>
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={props => (
+                  <Fragment>
+                    <Quote />
+                  </Fragment>
+                )}
+              />
+              {/* <Route exact path='/about' component={About} />
+                <Route exact path='/user/:login' component={User} /> */}
+            </Switch>
+          </div>
+        </div>
+      </Router>
+      <span style={spanStyle}>
+        <img
+          src='http://api.paperquotes.com/static/images/paperquotes.png'
+          height='20'
+          width='20'
+          alt='paperquotes.com'
+        />
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          href='http://paperquotes.com'
+          title='Powered by quotes from paperquotes.com'
+          style={aStyle}
         >
-          Learn React
+          paperquotes.com
         </a>
-      </header>
-    </div>
+      </span>
+    </QuoteState>
   );
-}
+};
+
+const spanStyle = {
+  zIndex: "50",
+  fontSize: "0.9em"
+};
+
+const aStyle = {
+  color: "#9fcc25",
+  marginLeft: "4px",
+  verticalAlign: "middle"
+};
 
 export default App;
